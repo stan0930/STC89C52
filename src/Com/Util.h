@@ -1,12 +1,13 @@
-#ifndef __COM_UTIL_H__
-#define __COM_UTIL_H__
-
+#ifndef _UTIL_H_
+#define _UTIL_H_
 #include <INTRINS.H>
 
+// 8bit无符号数
 typedef unsigned char u8;
+// 16bit无符号数
 typedef unsigned int u16;
+// 32bit无符号数
 typedef unsigned long u32;
-typedef float f32;
 
 /**
  * @brief 延时一定时长
@@ -15,5 +16,4 @@ typedef float f32;
  */
 void Delay1ms(u16 count);
 
-
-#endif /* __COM_UTIL_H__ */
+#endif
