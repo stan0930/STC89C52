@@ -37,7 +37,7 @@ static void Int_DigitalTube_DisplaySingle(u8 dig, u8 dat)
     P0 = dat;
 }
 
-void Int_DigitalTube_Refresh()
+void Int_DigitalTube_Refresh()// 刷新数码管显示
 {
     u8 i;
     // 依次刷新8位数码管
@@ -46,6 +46,8 @@ void Int_DigitalTube_Refresh()
         // 延时增加占空比
         Delay1ms(1);
     }
+    P0 = 0x00;   // 关闭段选，避免最后一位持续点亮
+
 }
 
 void Int_DigitalTube_Init(){

@@ -1,5 +1,6 @@
 #include "Int_MatrixKey.h"
 #include <STC89C5xRC.H>
+#include "Int_DigitalTube.h"
 
 u8 Int_MatrixKey_CheckKey()
 {
@@ -17,7 +18,9 @@ u8 Int_MatrixKey_CheckKey()
     if (P2 == 0xEE) {
         Delay1ms(10);
         if (P2 == 0xEE) {
-            while (P2 == 0xEE);
+            while (P2 == 0xEE) {
+                Int_DigitalTube_Refresh();
+            }
             return 5;
         }
     }
@@ -26,7 +29,9 @@ u8 Int_MatrixKey_CheckKey()
     if (P2 == 0xDE) {
         Delay1ms(10);
         if (P2 == 0xDE) {
-            while (P2 == 0xDE);
+            while (P2 == 0xDE) {
+                Int_DigitalTube_Refresh();
+            }
             return 6;
         }
     }
@@ -35,7 +40,9 @@ u8 Int_MatrixKey_CheckKey()
     if (P2 == 0xBE) {
         Delay1ms(10);
         if (P2 == 0xBE) {
-            while (P2 == 0xBE);
+            while (P2 == 0xBE) {
+                Int_DigitalTube_Refresh();
+            }
             return 7;
         }
     }
@@ -44,7 +51,9 @@ u8 Int_MatrixKey_CheckKey()
     if (P2 == 0x7E) {
         Delay1ms(10);
         if (P2 == 0x7E) {
-            while (P2 == 0x7E);
+            while (P2 == 0x7E) {
+                Int_DigitalTube_Refresh();
+            }
             return 8;
         }
     }
@@ -55,7 +64,9 @@ u8 Int_MatrixKey_CheckKey()
     if (P2 == 0xED) {
         Delay1ms(10);
         if (P2 == 0xED) {
-            while (P2 == 0xED);
+            while (P2 == 0xED) {
+                Int_DigitalTube_Refresh();
+            }
             return 9;
         }
     }
@@ -64,7 +75,9 @@ u8 Int_MatrixKey_CheckKey()
     if (P2 == 0xDD) {
         Delay1ms(10);
         if (P2 == 0xDD) {
-            while (P2 == 0xDD);
+            while (P2 == 0xDD) {
+                Int_DigitalTube_Refresh();
+            }
             return 10;
         }
     }
@@ -73,7 +86,9 @@ u8 Int_MatrixKey_CheckKey()
     if (P2 == 0xBD) {
         Delay1ms(10);
         if (P2 == 0xBD) {
-            while (P2 == 0xBD);
+            while (P2 == 0xBD) {
+                Int_DigitalTube_Refresh();
+            }
             return 11;
         }
     }
@@ -82,7 +97,9 @@ u8 Int_MatrixKey_CheckKey()
     if (P2 == 0x7D) {
         Delay1ms(10);
         if (P2 == 0x7D) {
-            while (P2 == 0x7D);
+            while (P2 == 0x7D) {
+                Int_DigitalTube_Refresh();
+            }
             return 12;
         }
     }
@@ -93,7 +110,9 @@ u8 Int_MatrixKey_CheckKey()
     if (P2 == 0xEB) {
         Delay1ms(10);
         if (P2 == 0xEB) {
-            while (P2 == 0xEB);
+            while (P2 == 0xEB) {
+                Int_DigitalTube_Refresh();
+            }
             return 13;
         }
     }
@@ -102,7 +121,9 @@ u8 Int_MatrixKey_CheckKey()
     if (P2 == 0xDB) {
         Delay1ms(10);
         if (P2 == 0xDB) {
-            while (P2 == 0xDB);
+            while (P2 == 0xDB) {
+                Int_DigitalTube_Refresh();
+            }
             return 14;
         }
     }
@@ -111,7 +132,9 @@ u8 Int_MatrixKey_CheckKey()
     if (P2 == 0xBB) {
         Delay1ms(10);
         if (P2 == 0xBB) {
-            while (P2 == 0xBB);
+            while (P2 == 0xBB) {
+                Int_DigitalTube_Refresh();
+            }
             return 15;
         }
     }
@@ -120,7 +143,9 @@ u8 Int_MatrixKey_CheckKey()
     if (P2 == 0x7B) {
         Delay1ms(10);
         if (P2 == 0x7B) {
-            while (P2 == 0x7B);
+            while (P2 == 0x7B) {
+                Int_DigitalTube_Refresh();
+            }
             return 16;
         }
     }
@@ -131,7 +156,9 @@ u8 Int_MatrixKey_CheckKey()
     if (P2 == 0xE7) {
         Delay1ms(10);
         if (P2 == 0xE7) {
-            while (P2 == 0xE7);
+            while (P2 == 0xE7) {
+                Int_DigitalTube_Refresh();
+            }
             return 17;
         }
     }
@@ -140,7 +167,9 @@ u8 Int_MatrixKey_CheckKey()
     if (P2 == 0xD7) {
         Delay1ms(10);
         if (P2 == 0xD7) {
-            while (P2 == 0xD7);
+            while (P2 == 0xD7) {
+                Int_DigitalTube_Refresh();
+            }
             return 18;
         }
     }
@@ -149,8 +178,10 @@ u8 Int_MatrixKey_CheckKey()
     if (P2 == 0xB7) {
         Delay1ms(10);
         if (P2 == 0xB7) {
-            while (P2 == 0xB7);
-            return 18;
+            while (P2 == 0xB7) {
+                Int_DigitalTube_Refresh();
+            }
+            return 19;
         }
     }
 
@@ -158,7 +189,9 @@ u8 Int_MatrixKey_CheckKey()
     if (P2 == 0x77) {
         Delay1ms(10);
         if (P2 == 0x77) {
-            while (P2 == 0x77);
+            while (P2 == 0x77) {
+                Int_DigitalTube_Refresh();
+            }
             return 20;
         }
     }
