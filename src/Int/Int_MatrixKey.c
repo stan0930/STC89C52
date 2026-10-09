@@ -12,11 +12,11 @@ u8 Int_MatrixKey_CheckKey() {
         P2 = rows[i];
         for (j = 0; j < 4; j++){
             step = 0x10 << j ;
-            if((P2&step)==0){
-                Delay1ms(10);
-                if((P2&step)==0){
-                    while((P2&step)==0){Int_DigitalTube_Refresh();};
-                    return 5+4*i+j;
+            if((P2&step)==0){//→ 确认按下
+                Delay1ms(10);//→ 消抖
+                if((P2&step)==0){//→ 消抖
+                    while((P2&step)==0){Int_DigitalTube_Refresh();};//→ 等待松手
+                    return 5+4*i+j;//→ 返回按键编号
                 }
             }
         }
