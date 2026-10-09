@@ -6,7 +6,7 @@ int main()
     Int_DigitalTube_Init();
     Int_DigitalTube_DisplayNum(key_pressed);
     while (1) {
-        key_pressed = Int_MatrixKey_CheckKey();// 检查是否有按键被按下
+        key_pressed = Int_MatrixKey_CheckKey();// Int_MatrixKey_CheckKey方法里面有while，按下的时候会阻塞，Int_DigitalTube_Refresh()就会停i就会停在8
         if (key_pressed) {
             Int_DigitalTube_DisplayNum(key_pressed);// 显示按键编号
         }
