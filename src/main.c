@@ -1,26 +1,16 @@
-#include "Int_key.h"
-#define LED1 P00
-#define LED2 P01
-#define LED3 P02
-#define LED4 P03
-
-void main()
+#include "Int_DigitalTube.h"
+#include "Int_MatrixKey.h"
+int main()
 {
+    u8 key_pressed = 0;
+    Int_DigitalTube_Init();
+    Int_DigitalTube_DisplayNum(key_pressed);
     while (1) {
-        if (Int_Key_IsSW1Pressed()) {
-            LED1 = ~LED1;
+        key_pressed = Int_MatrixKey_CheckKey();
+        if (key_pressed) {
+            Int_DigitalTube_DisplayNum(key_pressed);
         }
 
-        if (Int_Key_IsSW2Pressed()) {
-            LED2 = ~LED2;
-        }
-
-        if (Int_Key_IsSW3Pressed()) {
-            LED3 = ~LED3;
-        }
-
-        if (Int_Key_IsSW4Pressed()) {
-            LED4 = ~LED4;
-        }
+        Int_DigitalTube_Refresh();
     }
 }
