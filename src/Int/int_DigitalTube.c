@@ -3,7 +3,7 @@
 // 数码管显示缓存
 static u8 buffer[8];//数码管最多显示8位
 //数字0~9的段选编码
-static u8 s_digit_codes[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F,0x80};//0~9和'.'的段选编码表
+static u8 s_digit_codes[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};//0~9和'.'的段选编码表
 
 
 
@@ -42,7 +42,7 @@ void DigitalTube_DisplayNum(u32 num, u8 decimal_point){
 
 	i=7;
 	while(num>0){
-        if(decimal_point==0){//有小数
+        if(decimal_point==0&&i<7){//有小数
             buffer[i]= s_digit_codes[num%10]+128;
         }else{//无小数
             buffer[i]= s_digit_codes[num%10];

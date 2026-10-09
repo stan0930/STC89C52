@@ -1,18 +1,26 @@
-#include <STC89C5xRC.H>
-#include "int_DigitalTube.h"
+#include "Int_key.h"
+#define LED1 P00
+#define LED2 P01
+#define LED3 P02
+#define LED4 P03
 
-#define SMG_EN P36
-#define LED_EN P34
-
-void main(void)
+void main()
 {
-    SMG_EN = 0;
-    LED_EN = 0;
+    while (1) {
+        if (Int_Key_IsSW1Pressed()) {
+            LED1 = ~LED1;
+        }
 
-	DigitalTube_Devideintanddecimalpoint(114.514);
+        if (Int_Key_IsSW2Pressed()) {
+            LED2 = ~LED2;
+        }
 
-    while (1)
-    {
-        DigitalTube_Refresh();
+        if (Int_Key_IsSW3Pressed()) {
+            LED3 = ~LED3;
+        }
+
+        if (Int_Key_IsSW4Pressed()) {
+            LED4 = ~LED4;
+        }
     }
 }
