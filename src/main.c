@@ -1,16 +1,32 @@
-#include "Int_DigitalTube.h"
-#include "Int_MatrixKey.h"
-int main()
-{
-    u8 key_pressed = 0;
-    Int_DigitalTube_Init();
-    Int_DigitalTube_DisplayNum(key_pressed);
-    while (1) {
-        key_pressed = Int_MatrixKey_CheckKey();// Int_MatrixKey_CheckKey方法里面有while，按下的时候会阻塞，Int_DigitalTube_Refresh()就会停i就会停在8
-        if (key_pressed) {
-            Int_DigitalTube_DisplayNum(key_pressed);// 显示按键编号
-        }
+#include <STC89C5xRC.H>
+#define LED1 P00
 
-        Int_DigitalTube_Refresh();// 刷新数码管显示
+
+void INT0_Init()
+{
+    // 打开中断总开关
+    EA = 1;
+    // 打开外部中断0开关
+    EX0 = 1;
+    // 配置外部中断为下降沿触发
+    IT0 = 1;
+    //当前程序只有一个，优先级可省略不配
+
+
+    //中断服务程序
+}
+
+void main()
+{
+    INT0_Init();
+    while(1){
+        
     }
+
+
+}
+
+void INT0_Handler() interrupt 0
+{   
+    LED1 = ~LED1;
 }
