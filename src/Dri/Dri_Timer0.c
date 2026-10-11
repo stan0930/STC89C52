@@ -1,12 +1,18 @@
 #include "Dri_Timer0.h"
 #include <STC89C5xRC.H>
+#include <STDIO.H>
 #include "Util.h"
 #define LED1 P00
+#define MAX_CALLBACK_COUNT 4
+
+
+static Timer0_Callback s_callbacks[MAX_CALLBACK_COUNT];
 
 
 
 void Dri_Timer0_Init()
-{
+{   
+    u8 i;
     //1.启用中断
     EA = 1;
     ET0 = 1;
@@ -21,20 +27,59 @@ void Dri_Timer0_Init()
 
     // 4.启动
     TR0 = 1;
+
+    //5.初始化函数指针数组
+    for(i =0 ;i < MAX_CALLBACK_COUNT;i++){
+        s_callbacks[i] = NULL;
+    }
 }
 
+bit Dri_Timer0_RegisterCallback(Timer0_Callback callback)
+{
+    u8 i;
+
+    //确保不会重复注册
+    for(i=0;i< MAX_CALLBACK_COUNT;i++){
+        if(s_callbacks[i] == callback){
+            return 1;
+        }
+    }
+    
+    //寻找坑位
+    for(i=0;i< MAX_CALLBACK_COUNT;i++){
+        if(s_callbacks[i] == NULL){
+            s_callbacks[i] = callback;
+            return 1;
+        }
+    }
+    return 0; 
+}
+
+bit Dri_Timer0_DeregisterCallback(Timer0_Callback callback)
+{
+    u8 i;
+    for(i=0;i< MAX_CALLBACK_COUNT;i++){
+        if(s_callbacks[i] == callback){
+            s_callbacks[i] = NULL;
+            return 1;
+        }
+    }
+    return 0;
+}
 
 void Dri_Timer0_Handler() interrupt 1
-{
-    static u16 count = 0;//500次就是500ms
-    //1.初始值
+{   
+    u8 i = 0;
+    //1.重新装载初始值
     TL0 = 64614;
     TH0 = 64614 >> 8;
 
-    //2.LED
-    count++;
-    if(count >= 500){
-        count = 0;
-        LED1 = ~LED1;
+    //2.轮询函数指针数组
+    for(i = 0;i < MAX_CALLBACK_COUNT;i++){
+        if(s_callbacks[i] != NULL){
+            s_callbacks[i]();
+        }
     }
+
+
 }
