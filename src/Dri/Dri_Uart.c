@@ -1,9 +1,23 @@
 #include "Dri_Uart.h"
+#include "Util.h"
+#include "Dri_Timer0.h"
 #include <STC89C5xRC.H>
 
 static bit s_is_sending = 0;//0表示未在发送，1表示正在发送中
-static char s_buffer = 0;//这里不用extern是因为extern可以让外部读和写s_buffer，这里提供一个只读方法来代替extern
+static char s_buffer[16];
+static u8 s_index = 0;//接收数据的索引
 
+static u8 s_idle_count = 0;//空闲计数器，用于检测数据是否接收完毕
+static bit s_is_complete = 0;
+
+
+void Dri_UART_Timer0Callback(){
+
+    s_idle_count++;
+    if(s_index > 0 && s_idle_count >= 10){
+        s_is_complete = 1;
+    }
+}
 
 
 /**
@@ -44,7 +58,10 @@ void Dri_Uart_Init(void)
     RI = 0;
     TI = 0;
 
-
+//----------------------------------------------------------
+    
+    //注册空闲检测函数
+    Dri_Timer0_RegisterCallback(Dri_UART_Timer0Callback);
 }
 //发送数据只要向SBUF中写入数据即可，他会自动后面的流程
 void Dri_Uart_SendChar(char c)
@@ -62,22 +79,27 @@ void Dri_Uart_SendStr(char *str)
     }
 }
 
-bit Dri_UART_ReceiveChar(char *c)
+bit Dri_UART_ReceiveStr(char *str)
 {
-    if (s_buffer){
-        *c = s_buffer;
-        s_buffer = 0;
+    if(s_is_complete == 1){
+        u8 i;
+        for(i =0;i < s_index;i++){
+            str[i] = s_buffer[i];
+        }
+        str[i] = '\0';
+        s_is_complete = 0;
+        s_index = 0;
         return 1;
-    }else{
-        return 0;
     }
+    return 0;
 }
 
 void Dri_UART_Handler() interrupt 4  //串口中断的中断号是4
 {
     /* 检查接收中断标志位RI，如果为1，表示有一帧数据接收完成 */
     if (RI == 1) {//数据已经在SBUF中
-        s_buffer = SBUF;
+        s_buffer[s_index++] = SBUF;
+        s_idle_count = 0;
         RI = 0;
     }
 
