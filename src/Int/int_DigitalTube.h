@@ -9,6 +9,12 @@
  *
  */
 void Int_DigitalTube_Init();
+/**
+ * @brief 数码管关闭方法
+ * 
+ */
+void Int_DigitalTube_Off(void);
+
 
 /**
  * @brief 设置数码管要显示的数字

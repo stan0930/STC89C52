@@ -9,13 +9,21 @@
 static u8 s_led_index;
 static u16 s_tick_count;
 
-void Int_Led_Init(void)
+
+
+void Int_Led_Init(void)//调用Dri_Timer0_Init()  +  Dri_Timer0_RegisterCallback(Int_Led_Show)初始化流水灯
 {
     s_led_index = 0;
     s_tick_count = 0;
     LED_EN = 1;
     P0 = 0xFE;
     Dri_Timer0_RegisterCallback(Int_Led_Show);
+}
+
+void Int_Led_Off(void)//关闭流水灯
+{
+    LED_EN = 0;
+    Dri_Timer0_DeregisterCallback(Int_Led_Show);
 }
 
 void Int_Led_Show(void)

@@ -57,6 +57,12 @@ void Int_DigitalTube_Init(){
     SMG_EN = 0;
 }
 
+void Int_DigitalTube_Off(void)
+{
+    P0 = 0x00; // 关闭段选
+    SMG_EN = 1; // 关闭数码管，与你的 Init 中 SMG_EN = 0 对应
+}
+
 void Int_DigitalTube_DisplayNum(u32 num){
     u8 i;
     // 将显存清零

@@ -15,6 +15,9 @@ static u8 arr[8];
 static void Int_MatrixLed_Show()
 {
     static u8 i = 0;//表示被扫描的次数
+
+
+
     //行扫描
     if(i==0)
     {
@@ -51,11 +54,23 @@ void Int_MatrixLed_Init(void)
     //关闭数码管
     SMGEN = 1;
     //开启定时器
-    Dri_Timer0_Init();
+    //Dri_Timer0_Init();    main函数里有这里就不写
 
     //注册函数Int_MatrixLed_Show到定时器
     Dri_Timer0_RegisterCallback(Int_MatrixLed_Show);
 
+}
+
+void Int_MatrixLed_Off()
+{
+    //关闭点阵屏
+    DZPEN = 1;
+    //关闭led
+    LEDEN = 0;
+    //关闭数码管
+    SMGEN = 1;
+    //删除定时器0的回调函数
+    Dri_Timer0_DeregisterCallback(Int_MatrixLed_Show);
 }
 
 //接收所有阴极的数据（P00-P07）八行数据

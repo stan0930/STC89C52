@@ -52,7 +52,7 @@ bit Dri_Timer0_RegisterCallback(Timer0_Callback callback)
             return 1;
         }
     }
-    return 0; 
+    return 0;
 }
 
 bit Dri_Timer0_DeregisterCallback(Timer0_Callback callback)

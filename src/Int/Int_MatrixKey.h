@@ -10,5 +10,10 @@
  */
 u8 Int_MatrixKey_CheckKey();
 
+void Int_MatrixKey_Init();
+
+void Int_MatrixKey_Off();
+void Int_MatrixKey_Refresh(void);
+
 
 #endif /* __INT_MATRIXKEY_H__ */

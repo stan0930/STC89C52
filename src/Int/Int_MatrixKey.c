@@ -1,7 +1,9 @@
 #include "Int_MatrixKey.h"
 #include <STC89C5xRC.H>
 #include "Int_DigitalTube.h"
+#include "Dri_Timer0.h"
 
+static bit s_enabled = 0;//是否启用矩阵检测功能
 
 
 u8 Int_MatrixKey_CheckKey() {
@@ -22,4 +24,28 @@ u8 Int_MatrixKey_CheckKey() {
         }
     }
     return 0;
+}
+
+void Int_MatrixKey_Refresh()
+{   
+        u16 key;
+        if (!s_enabled) return;
+        key = Int_MatrixKey_CheckKey();
+        if(key != 0){
+            Int_DigitalTube_DisplayNum(key);
+        }
+        Int_DigitalTube_Refresh();
+}
+void Int_MatrixKey_Init()
+{
+    Int_DigitalTube_Init();
+    // 按键检测由主循环调用，不注册到中断
+    s_enabled = 1;
+
+}
+
+void Int_MatrixKey_Off()
+{
+    s_enabled = 0;
+    Int_DigitalTube_Off();
 }

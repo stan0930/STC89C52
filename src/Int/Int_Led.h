@@ -7,4 +7,6 @@ void Int_Led_Init(void);
 /* Called once per Timer0 overflow. */
 void Int_Led_Show(void);
 
+void Int_Led_Off(void);
+
 #endif /* __INT_LED_H__ */

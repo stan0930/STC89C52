@@ -1,5 +1,6 @@
 #ifndef _UTIL_H_
 #define _UTIL_H_
+#include <STC89C5xRC.H>
 #include <INTRINS.H>
 
 // 8bit无符号数
