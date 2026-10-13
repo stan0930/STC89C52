@@ -1,5 +1,15 @@
 #include "Dri_Uart.h"
+#include <STC89C5xRC.H>
 
+static bit s_is_sending = 0;//0表示未在发送，1表示正在发送中
+static char s_buffer = 0;//这里不用extern是因为extern可以让外部读和写s_buffer，这里提供一个只读方法来代替extern
+
+
+
+/**
+ * @brief 初始化UART串口
+ * 
+ */
 void Dri_Uart_Init(void)
 {
     //设置工作模式：8个数据位，1个停止位，无校验位，异步收发
@@ -36,18 +46,44 @@ void Dri_Uart_Init(void)
 
 
 }
+//发送数据只要向SBUF中写入数据即可，他会自动后面的流程
+void Dri_Uart_SendChar(char c)
+{   
+    while(s_is_sending == 1);//很精妙
+    s_is_sending = 1;
+    SBUF = c;
+}
 
-/**
- * @brief UART串口中断处理函数
- * 
- */
-void Dri_UART_Handler() interrupt 4
+void Dri_Uart_SendStr(char *str)
+{
+    while(*str != 0){ 
+        Dri_Uart_SendChar(*str);
+        str++;
+    }
+}
+
+bit Dri_UART_ReceiveChar(char *c)
+{
+    if (s_buffer){
+        *c = s_buffer;
+        s_buffer = 0;
+        return 1;
+    }else{
+        return 0;
+    }
+}
+
+void Dri_UART_Handler() interrupt 4  //串口中断的中断号是4
 {
     /* 检查接收中断标志位RI，如果为1，表示有一帧数据接收完成 */
-    if (RI == 1) {
+    if (RI == 1) {//数据已经在SBUF中
+        s_buffer = SBUF;
+        RI = 0;
     }
 
     /* 检查发送中断标志位TI，如果为1，表示有一帧数据发送完成 */
     if (TI == 1) {
+        s_is_sending = 0;
+        TI = 0;
     }
 }
