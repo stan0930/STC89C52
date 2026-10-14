@@ -81,7 +81,7 @@ void Dri_Uart_SendStr(char *str)
 
 bit Dri_UART_ReceiveStr(char *str)
 {
-    if(s_is_complete == 1){
+    if(s_is_complete == 1){//数据接收完成
         u8 i;
         for(i =0;i < s_index;i++){
             str[i] = s_buffer[i];
