@@ -46,7 +46,7 @@ u8 Dri_IIC_ReceiveByte()
     SDA = 1;  // 交出SDA的控制权
     for(i = 0; i < 8; i++){
         SCL = 1;
-        byte |= (byte<<1) | SDA;
+        byte = (byte<<1) | SDA;
         SCL = 0;
     }
     return byte;
