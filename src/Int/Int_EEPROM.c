@@ -6,12 +6,12 @@ void Int_EEPROM_WritePage(u8 address, u8 bytes[], u8 len)
     // 发送起始信号
     Dri_IIC_Start();
     // 发送设备地址
-    Dri_IIC_SendByte(DEV_ADDR);
+    Dri_IIC_SendByte(DEV_ADDR);//一块EEPROM
     // 接收确认信息
     Dri_IIC_ReceiveAck();
 
     // 发送字节地址
-    Dri_IIC_SendByte(address);
+    Dri_IIC_SendByte(address);//写入地址
     // 接收确认信息
     Dri_IIC_ReceiveAck();
     // 发送数据

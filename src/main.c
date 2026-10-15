@@ -4,7 +4,8 @@
 
 
 void main(void)
-{
+{   
+    int code arr[26];
     u8 i=0;
     u8 picture[26] = {
         0xF8, 0x0A, 0xEC, 0xAF, 0xEC, 0x8A, 0xF8, 0x00,
