@@ -16,7 +16,15 @@ void Int_OLED_Init(void);
 void Int_OLED_WriteCmdBytes(u8 bytes[], u8 size);
 
 //向SSD1315写入字节（显示的数据）
+/**
+ * @brief 向SSD1315写入字节（显示的数据）
+ * 
+ * @param bytes 要写入的字节数组
+ * @param size 数据字节数
+ */
 void Int_OLED_WriteDataBytes(u8 bytes[], u8 size);
+
+void Int_OLED_Clear(void);
 
 
 #endif /* __INT_OLED_H__ */

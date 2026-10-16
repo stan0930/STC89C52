@@ -29,7 +29,6 @@ void Int_EEPROM_WritePage(u8 address, u8 bytes[], u8 len)
 // 得程序员来算当前页剩余位置的个数
 void Int_EEPROM_WriteBytes(u8 address, u8 bytes[], u8 len)
 {
-    u8 i;
 
     while (len > 0)
     {
