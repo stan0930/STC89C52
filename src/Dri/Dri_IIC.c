@@ -14,11 +14,17 @@ void Dri_IIC_Start()
     &    1000 0000
 */
 
-void Dri_IIC_SendByte(u8 byte)
+void Dri_IIC_SendByte(u8 byte)//把byte从最高位开始一位一位发送到从机
 {
     u8 i;
     for(i = 0; i < 8; i++){
-        SDA = byte & (0x80 >> i);
+        //SDA = byte & (0x80 >> i);
+        if( (byte & 0x80 ) == 0){//最高位是0
+            SDA = 0;
+        }else{
+            SDA = 1;
+        }
+        byte <<= 1;
         SCL = 1;
         SCL = 0;
     }
