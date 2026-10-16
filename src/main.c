@@ -1,6 +1,17 @@
 #include "Int_OLED.h"
 
 
+void main(void)
+{
+    Int_OLED_Init();
+    Int_OLED_Clear();
+    Int_OLED_ShowStr(0, 0, "Hello World!");
+    Int_OLED_ShowStr(0, 1, "12345678");
+    while(1){
+        
+    }
+}
+
 // void main(void)
 // {   
 //     u8 i=0;
@@ -35,30 +46,34 @@
 // }
 
 
-void main(void)
-{   
-    u8 data_bytes[16] = {0xC0, 0x30, 0x08, 0x08, 0x08, 0x38, 0x00, 0x00,
-                        0x07, 0x18, 0x20, 0x20, 0x22, 0x1E, 0x02, 0x00};
-    u8 cmd_bytes[5];
-    cmd_bytes[0] = 0x20; // 设置寻址模式
-    cmd_bytes[1] = 0x02; // 页寻址模式
-    //-----------------------------------------------------------------
-    cmd_bytes[2] = 0xB0; // 页地址范围
-    cmd_bytes[3] = 0x00; // 列地址范围
-    cmd_bytes[4] = 0x10; // 列地址范围//这里规定配置列地址需要拆成两行来配置
+// void main(void)
+// {   
+//     u8 data_bytes[16] = {0xC0, 0x30, 0x08, 0x08, 0x08, 0x38, 0x00, 0x00,
+//                         0x07, 0x18, 0x20, 0x20, 0x22, 0x1E, 0x02, 0x00};
+//     u8 cmd_bytes[5];
+//     cmd_bytes[0] = 0x20; // 设置寻址模式
+//     cmd_bytes[1] = 0x02; // 页寻址模式
+//     //-----------------------------------------------------------------
+//     //Page
+//     cmd_bytes[2] = 0xB4; // 页地址范围
+//     //Column
+//     cmd_bytes[3] = 0x08; // 列地址范围
+//     cmd_bytes[4] = 0x11; // 列地址范围//这里规定配置列地址需要拆成两行来配置
 
 
 
 
-    Int_OLED_Init();
-    Int_OLED_Clear();
-    Int_OLED_WriteCmdBytes(cmd_bytes, 5);//写入命令字节
-    Int_OLED_WriteDataBytes(data_bytes, 8);//写G字母的上半部分
-    cmd_bytes[2] = 0xB1; // 页地址范围//切换到下一页
-    Int_OLED_WriteCmdBytes(cmd_bytes, 5);//写入命令字节
-    Int_OLED_WriteDataBytes(data_bytes+8, 8);//写G字母的下半部分
+//     Int_OLED_Init();
+//     Int_OLED_Clear();
+//     Int_OLED_WriteCmdBytes(cmd_bytes, 5);//写入命令字节
+//     Int_OLED_WriteDataBytes(data_bytes, 8);//写G字母的上半部分
+//     cmd_bytes[2] = 0xB5; // 页地址范围//切换到下一页
+//     Int_OLED_WriteCmdBytes(cmd_bytes, 5);//写入命令字节
+//     Int_OLED_WriteDataBytes(data_bytes+8, 8);//写G字母的下半部分
     
-    while (1) {
-    }
+//     while (1) {
+//     }
     
-}
+// }
+
+
