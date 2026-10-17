@@ -1,4 +1,5 @@
 #include "Int_OLED.h"
+#include <STDIO.H>
 //code代码区只读，8kb大小
 code const u8 Int_OLED_Font[][16] =  //二维数组
     {
@@ -353,7 +354,7 @@ void Int_OLED_Clear(void)
 {
     u8 cmd_bytes[3];
     u8 data_bytes[8] = {0};
-    u8 i;
+    u16 i;
 
     /* 选择水平寻址，设置整个 128x64 显存范围。 */
     cmd_bytes[0] = 0x20; // 设置寻址模式
@@ -371,9 +372,21 @@ void Int_OLED_Clear(void)
     Int_OLED_WriteCmdBytes(cmd_bytes, 3);
 
     /* 128 列 * 8 页，每次发送 8 个 0，共 1024 字节。 */
-    for (i = 0; i < 128; i++) {
-        Int_OLED_WriteDataBytes(data_bytes, 8);
+
+    Dri_IIC_Start();
+
+    Dri_IIC_SendByte(DEV_ADDR);
+    Dri_IIC_ReceiveAck();
+
+    Dri_IIC_SendByte(DATA_TYPE);
+    Dri_IIC_ReceiveAck();
+
+    for (i = 0; i < 128*8; i++) {
+        Dri_IIC_SendByte(0);
+        Dri_IIC_ReceiveAck();
     }
+
+    Dri_IIC_Stop();
 
 }
 
@@ -415,4 +428,11 @@ void Int_OLED_ShowStr(u8 x, u8 y, u8 *str)//里面配置好了页选址
         Int_OLED_WriteDataBytes(Int_OLED_Font[str[i]-32]+8, 8);//写入字模数组下半部分
     }
 
+}
+
+void Int_OLED_ShowNum(u8 x, u8 y, long int num) //打印单个字符
+{
+    char str[12];
+    sprintf(str,"%ld",num);
+    Int_OLED_ShowStr(x, y, str);
 }

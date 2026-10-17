@@ -41,5 +41,6 @@ void Int_OLED_SetPointer(u8 page,u8 column);
  */
 void Int_OLED_ShowStr(u8 x, u8 y, u8 *str);
 
+void Int_OLED_ShowNum(u8 x, u8 y, long int num);
 
 #endif /* __INT_OLED_H__ */
