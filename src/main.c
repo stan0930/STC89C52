@@ -15,7 +15,7 @@ char * WEEK_NAME[]={
 
 int main(){
     
-    char str[17];
+    char xdata str[32];  
     char temperature;
     Struct_Date st_date;
     st_date.year = 26;
