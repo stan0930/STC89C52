@@ -1,7 +1,7 @@
 #include "Int_DigitalTube.h"
 #define SMG_EN P36
 #define LED_EN P34
-static char s_digital_codes[10] = {
+static char code s_digital_codes[10] = {
     0x3F, // 0
     0x06, // 1
     0x5B, // 2

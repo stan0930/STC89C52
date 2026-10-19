@@ -17,15 +17,11 @@ void Dri_1Wire_WriteByte(u8 byte)
 {
     u8 i;
     for (i = 0; i < 8; i++) {
-        // 拉低总线
         DQ = 0;
-        // 从低位发送
-        DQ = byte & 0x1;
-        byte >>= 1;
-
-        // 延时50us
+        //DQ = (byte >> i) & 0x01;
+        DQ = byte & 0x01;
+        byte >>= 1; // 这时 DQ 已经设置好了
         Com_Util_Delay50us();
-        // 释放总线
         DQ = 1;
     }
 
