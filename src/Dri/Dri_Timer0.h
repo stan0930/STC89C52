@@ -1,6 +1,6 @@
 #ifndef __DRI_TIMER0_H__
 #define __DRI_TIMER0_H__
-typedef void(*Timer0_Callback)(void);
+typedef void(*Timer0_Callback)(void);//Timer0_Callback 是一个类型名，代表"指向 void 函数名(void) 这种函数的指针类型"。
 
 void Dri_Timer0_Init();
 /**

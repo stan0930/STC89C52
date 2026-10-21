@@ -6,7 +6,7 @@
 static bit s_enabled = 0;//是否启用矩阵检测功能
 
 
-u8 Int_MatrixKey_CheckKey() {
+u8 Int_MatrixKey_CheckKey() {//无循环，快速一遍扫描
     u8 rows[4] = {0xFE,0xFD,0xFB,0xF7};
     u8 i,step,j;
     for (i = 0; i < 4; i++) 	
